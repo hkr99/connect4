@@ -1,8 +1,31 @@
-# THIS IS MY FIRST PYTYHON PROECT CONENXT 4
-import sys
-import numpy as np
+# Entry point to script, runs game loop
+from connect_four import ConnectFour
 
-# I WILL TEST COMMITTING NOW!!!
-import os
-dir_path = os.path.dirname(os.path.realpath(__file__))
-print(dir_path)
+def main():
+    # Create a new game
+    game = ConnectFour()
+    # Start the game
+    game.start_game()
+
+    while True:
+        # Main game loop
+        # Get the current state of the game
+        # Display the state
+        # Get the player's move
+        # Apply the move
+        # Check for win condition
+        pass
+
+    while not game.is_game_over():
+        # Main game loop
+        # Get the current state of the game
+        # Display the state
+        # Get the player's move
+        # Apply the move
+        # Check for win condition
+        pass
+
+
+
+if __name__ == "__main__":
+    main()
