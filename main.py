@@ -8,8 +8,8 @@ def main():
         game.make_move()
 
         if game.check_win() == True:
-            print("Player", game.player, "has won!")
             game.show_board()
+            print("Player", game.player, "has won!")
             break
         else:
             pass
