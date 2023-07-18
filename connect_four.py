@@ -3,7 +3,10 @@ from numpy import argmax
 
 class Connect_Four:
     def __init__(self):
-        self.board = np.zeros((6,7))
+        row_board = 6
+        col_board = 7
+
+        self.board = np.zeros((row_board,col_board))
         self.player = 1
         self.move_number = 1
 
