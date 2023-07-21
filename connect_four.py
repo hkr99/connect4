@@ -8,6 +8,7 @@ class ConnectFour:
         self.board = np.zeros((rows,cols))
         # We'll be using player 1 to start for now, both players denoted by 1 and 2
         self.current_player = 1
+        self.turn = 1
 
     def start_game(self):
         # If I want to start a new game using the same board size as initially created when class instantiated
@@ -24,7 +25,114 @@ class ConnectFour:
         # bottom to top
         print(self.board)
 
+    def is_valid_move(self, col):
+        # A move is considered valid if 1. column exists within range; 2. the top row of that column is empty
+        # this will check whether column is full
+        return self.board[0][col] == 0
+
+    def make_move(self, col):
+        # Checks for move validity
+        if col < 0 or col > 6:
+            print("Please make sure to enter a number between 1 and 7")
+            return False
+
+        if not self.is_valid_move(col):
+            print("Invalid move, column is full, please try again")
+            return False
+
+        # Maybe argmax methodology is better but I chose different route to have interesting conversation
+        # This will give the next row in said column that is open
+        for row in reversed(range(self.board.shape[0])):
+            if self.board[row][col] == 0:
+                self.board[row][col] = self.current_player
+                self.turn +=1
+                return row
+
+
+    def player_switch(self):
+        # Small arithmetic trick to make sure the player switching works, more maths than coding logic
+        self.current_player = 3 - self.current_player
+
+    # Now we do win checking, a win can only happen from last piece placed so instead of scanning the board
+    # we've decided to check the vicinity from the last placed piece
+    # This also helps with how I populate my board, as a regular scan would mess with the indexing badly
+    # Instead, it does it from last placed piece for better logic
+    def horizontal_check(self, row, col):
+        count = 1  # Count the piece itself
+
+        # Check to the left
+        i = col - 1
+        while i >= 0 and self.board[row][i] == self.current_player:
+            count += 1
+            i -= 1
+
+        # Check to the right
+        i = col + 1
+        while i < self.board.shape[1] and self.board[row][i] == self.current_player:
+            count += 1
+            i += 1
+        # Evaluate to true using this conditional
+        return count >= 4
+
+    def vertical_check(self, row, col):
+        count = 1 # Count piece itself
+        # Checking downwards as pieces fall down, you cannot have a win "upwards"
+        # from the last placed piece
+        i = row + 1
+        while i < self.board.shape[0] and self.board[i][col] == self.current_player:
+            count +=1
+            i+=1
+        return count >= 4
+
+    def asc_diagonal_check(self,row, col):
+        count = 1  # Count the piece itself
+
+        # Check bottom-left
+        i, j = row + 1, col - 1
+        while i < self.board.shape[0] and j >= 0 and self.board[i][j] == self.current_player:
+            count += 1
+            i += 1
+            j -= 1
+
+        # Check top-right
+        i, j = row - 1, col + 1
+        while i >= 0 and j < self.board.shape[1] and self.board[i][j] == self.current_player:
+            count += 1
+            i -= 1
+            j += 1
+
+        return count >= 4
+
+    def desc_diagonal_check(self,row,col):
+        count = 1
+
+        # Check top-left
+        i, j = row - 1, col -1
+        while i >= 0 and j >= 0 and self.board[i][j] == self.current_player:
+            count +=1
+            i -= 1
+            j -= 1
+
+        # Check bottom-left
+        i, j = row + 1, col + 1
+        while i < self.board.shape[0] and j < self.board.shape[1] and self.board[i][j] == self.current_player:
+            count +=1
+            i += 1
+            j += 1
+
+        return count >= 4
+
+
+    def check_win(self, row, col):
+        if self.turn >= 7:
+            return (self.horizontal_check(row, col) or
+                    self.vertical_check(row, col) or
+                    self.asc_diagonal_check(row, col) or
+                    self.desc_diagonal_check(row, col))
+        else:
+            return False
+
+
 # game = ConnectFour()
 # game.print_board()
 
-print("You can do it, keep going!")

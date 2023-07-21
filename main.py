@@ -2,30 +2,23 @@
 from connect_four import ConnectFour
 
 def main():
-    # Create a new game
     game = ConnectFour()
-    # Start the game
-    game.start_game()
+    game_over = False
 
-    while True:
-        # Main game loop
-        # Get the current state of the game
-        # Display the state
-        # Get the player's move
-        # Apply the move
-        # Check for win condition
-        pass
+    while not game_over:
+        game.print_board()
 
-    while not game.is_game_over():
-        # Main game loop
-        # Get the current state of the game
-        # Display the state
-        # Get the player's move
-        # Apply the move
-        # Check for win condition
-        pass
-
-
+        # Get player's move
+        col = int(input(f"\nPlayer {game.current_player}'s turn. Choose a column (1-7): ")) - 1
+        # Find the row, make the move and check for win condition
+        row = game.make_move(col)
+        if row is not False and game.check_win(row, col):
+            game_over = True
+            game.print_board()
+            print(f"Player {game.current_player} wins!")
+            break
+        game.player_switch()
 
 if __name__ == "__main__":
+    print('Game Starting, get ready!\n')
     main()
