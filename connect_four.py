@@ -17,7 +17,7 @@ class Connect_Four:
         print("Player ", self.player," take your turn.\n This is move number ", self.move_number, ".")
         self.col = int(input("Please enter a column number between 1 and 7: "))-1
         if self.is_valid_move(self.col) == True:
-            self.move_number = self.move_number+1
+            self.move_number += +1
             self.row = np.argmax(self.board[:,self.col]==0)
             self.board[self.row,self.col] = self.player
         else:
