@@ -1,0 +1,17 @@
+[33mcommit f1941ff771d5d3dd9d8d6755e52b77cb071281ce[m[33m ([m[1;36mHEAD -> [m[1;32mhif[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/hif[m[33m, [m[1;32mmain[m[33m)[m
+Author: Hifzul Rashid <hifzul123@gmail.com>
+Date:   Sun Jul 16 15:59:27 2023 +0100
+
+    Edited main, added some methods to connect_four
+
+[33mcommit 04f0dcf4ffb58e21dd9a2ff0d761eb7af0072ee5[m
+Author: Hifzul Rashid <hifzul123@gmail.com>
+Date:   Fri Jul 7 15:45:19 2023 +0100
+
+    Adding main entry point
+
+[33mcommit 28a3641cbae40eb298bd402cdadc02e23aea93e1[m
+Author: Hifzul Rashid <hifzul123@gmail.com>
+Date:   Fri Jul 7 15:42:41 2023 +0100
+
+    first commit
