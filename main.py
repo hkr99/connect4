@@ -3,6 +3,7 @@ from connect_four import ConnectFour
 import pygame
 
 cell_size = 100;
+
 # def main():
 #     game = ConnectFour()
 #     game_over = False
@@ -25,6 +26,7 @@ def main():
     game = ConnectFour()
     screen = game.create_window()
     running = True
+    myfont = pygame.font.SysFont("monospace", 75)
 
     while running:
         for event in pygame.event.get():
@@ -35,18 +37,22 @@ def main():
                 x, y = pygame.mouse.get_pos()
                 col = x // cell_size
                 last_move = game.make_move(col)
+                game.print_board()
 
                 if last_move is not False and game.check_win(last_move,col):
                     pygame.display.set_caption(f"Player {game.current_player} wins!")
-                    pygame.time.wait(3000) # 3 second pause
+                    label = myfont.render(f"Player {game.current_player} wins!", 1, (255, 255, 0))
+                    screen.blit(label, (40, 10))
+                    pygame.display.flip()
+                    pygame.time.wait(3000)
                     running = False
 
                 game.player_switch()
-        screen.fill((255, 255, 255))
+
+        # screen.fill((255, 255, 255))
         game.draw_board(screen)
         pygame.display.flip()
-
-    pygame.quit()
+    # pygame.quit()
 
 if __name__ == "__main__":
     print('Game Starting, get ready!\n')

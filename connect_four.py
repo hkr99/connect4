@@ -25,15 +25,15 @@ class ConnectFour:
     def print_board(self):
         # Simple print, I notice online people are doing a flip but this won't be necessary if we populate our board from
         # bottom to top
-        print(self.board)
+        print("\n", self.board)
 
     def create_window(self, cell_size=100):
         pygame.init()
         width = cell_size * int(self.board.shape[1])
-        height = cell_size * int(self.board.shape[0])  # Extra row of space for text/hover
+        height = cell_size * int(self.board.shape[0]+1)  # Extra row of space for text/hover
 
         screen = pygame.display.set_mode((width, height))
-        pygame.display.set_caption('Connect Four')
+        pygame.display.set_caption('Connect Four | Hif n Ish')
         return screen
 
     def draw_board(self, screen, cell_size=100):
@@ -45,16 +45,16 @@ class ConnectFour:
         yellow = (255, 255, 0)
         for row in range(self.board.shape[0]):
             for col in range(self.board.shape[1]):
-                pygame.draw.rect(screen, blue, (col * cell_size, row * cell_size, cell_size, cell_size))
-                pygame.draw.circle(screen, black, (int((col + 0.5) * cell_size), int((row + 0.5) * cell_size)),
-                                   radius)
+                pygame.draw.rect(screen, blue, (col * cell_size, row * cell_size+cell_size, cell_size, cell_size))
+                pygame.draw.circle(screen, black, (int(col*cell_size+cell_size/2), int(row*cell_size+cell_size+cell_size/2)), radius)
+
         for row in range(self.board.shape[0]):
             for col in range(self.board.shape[1]):
                 if self.board[row][col] == 1:
-                    pygame.draw.circle(screen, red, (int((col + 0.5) * cell_size), screen_height - int((row + 0.5) * cell_size)), radius)
+                    pygame.draw.circle(screen, red, (int(col*cell_size+cell_size/2), int((row + 1.5) * cell_size)), radius)
                 elif self.board[row][col] == 2:
                     pygame.draw.circle(screen, yellow,
-                                       (int((col + 0.5) * cell_size), screen_height - int((row + 0.5) * cell_size)),
+                                       (int(col*cell_size+cell_size/2), int((row + 1.5) * cell_size)),
                                        radius)
     def is_valid_move(self, col):
         # A move is considered valid if 1. column exists within range; 2. the top row of that column is empty
