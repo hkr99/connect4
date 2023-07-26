@@ -41,21 +41,32 @@ class ConnectFour:
         screen_height = cell_size * self.board.shape[0]
         blue = (0, 0, 255)
         black = (0, 0, 0)
-        red = (255, 0, 0)
-        yellow = (255, 255, 0)
+
         for row in range(self.board.shape[0]):
             for col in range(self.board.shape[1]):
                 pygame.draw.rect(screen, blue, (col * cell_size, row * cell_size+cell_size, cell_size, cell_size))
                 pygame.draw.circle(screen, black, (int(col*cell_size+cell_size/2), int(row*cell_size+cell_size+cell_size/2)), radius)
+                
+    #def draw_board(self, screen, cell_size=100):
+        #radius = int(cell_size / 2 - 5)
+        #screen_height = cell_size * self.board.shape[0]
+        #blue = (0, 0, 255)
+        #black = (0, 0, 0)
+        #red = (255, 0, 0)
+        #yellow = (255, 255, 0)
+        #for row in range(self.board.shape[0]):
+            #for col in range(self.board.shape[1]):
+                #pygame.draw.rect(screen, blue, (col * cell_size, row * cell_size+cell_size, cell_size, cell_size))
+                #pygame.draw.circle(screen, black, (int(col*cell_size+cell_size/2), int(row*cell_size+cell_size+cell_size/2)), radius)
 
-        for row in range(self.board.shape[0]):
-            for col in range(self.board.shape[1]):
-                if self.board[row][col] == 1:
-                    pygame.draw.circle(screen, red, (int(col*cell_size+cell_size/2), int((row + 1.5) * cell_size)), radius)
-                elif self.board[row][col] == 2:
-                    pygame.draw.circle(screen, yellow,
-                                       (int(col*cell_size+cell_size/2), int((row + 1.5) * cell_size)),
-                                       radius)
+        #for row in range(self.board.shape[0]):
+            #for col in range(self.board.shape[1]):
+                #if self.board[row][col] == 1:
+                    #pygame.draw.circle(screen, red, (int(col*cell_size+cell_size/2), int((row + 1.5) * cell_size)), radius)
+                #elif self.board[row][col] == 2:
+                    #pygame.draw.circle(screen, yellow,
+                                       #(int(col*cell_size+cell_size/2), int((row + 1.5) * cell_size)),
+                                       #radius)
     def is_valid_move(self, col):
         # A move is considered valid if 1. column exists within range; 2. the top row of that column is empty
         # this will check whether column is full
@@ -82,6 +93,12 @@ class ConnectFour:
     def player_switch(self):
         # Small arithmetic trick to make sure the player switching works, more maths than coding logic
         self.current_player = 3 - self.current_player
+    
+    def get_last_token_position(self, col, cell_size):
+        # Returns the top position of the last token in the given column in pixels
+        for row in range(self.board.shape[0]):
+            if self.board[row][col] != 0:
+                return col * cell_size, (row + 1) * cell_size  # Pixel position
 
     # Now we do win checking, a win can only happen from last piece placed so instead of scanning the board
     # we've decided to check the vicinity from the last placed piece
